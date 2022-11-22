@@ -1,14 +1,14 @@
 {
   "name": "delete-old-releases",
   "version": "1.0.0",
-  "description": "",
+  "description": "A github action that auto delete old releases.",
   "main": "index.js",
   "scripts": {
     "build": "ncc build index.js --license licenses.txt"
   },
   "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "author": "Mingming Cui",
+  "license": "MIT",
   "dependencies": {
     "@actions/core": "^1.10.0",
     "@actions/github": "^5.1.1",

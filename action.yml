@@ -6,11 +6,11 @@ inputs:
     required: true
   keep-count:
     description: 'Number of releases to keep'
-    required: true
+    required: false
     default: 3
   keep-old-minor-releases:
     description: 'Keep the latest release of each older minor versions.'
-    required: false
+    required: true
     default: true
   keep-old-minor-releases-by:
     description: 'Which semver level should we use to keep old release? Can be: major, minor, patch'
@@ -33,7 +33,7 @@ inputs:
     required: false
     default: false
   dry-run:
-    description: "Doesn't do anything. Only a test run."
+    description: "Doesn't delete anything. Only a test run."
     required: false
     default: false
 runs:
