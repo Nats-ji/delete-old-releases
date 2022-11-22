@@ -32,9 +32,6 @@ inputs:
     description: 'Also remove the tags associated with the removed releases.'
     required: false
     default: false
-outputs:
-  result: # id of output
-    description: 'The result'
 runs:
   using: 'node16'
-  main: 'index.js'
+  main: 'dist/index.js'
