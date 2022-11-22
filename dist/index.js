@@ -13016,17 +13016,14 @@ async function deleteReleasesFromGithub(owner, repo, releases) {
   const octokit = github.getOctokit(Options.token);
   const promises = [];
   const tags = [];
-  let i = 1;
   for (const version in releases) {
-    if (i > 3) break;
-    const res = octokit.rest.repos.getRelease({
+    const res = octokit.rest.repos.deleteRelease({
       owner: owner,
       repo: repo,
       release_id: releases[version],
     });
     promises.push(res);
     tags.push(version);
-    i++;
   }
   await Promise.allSettled(promises).then((results) =>
     results.forEach((result, idx) => {
@@ -13044,17 +13041,14 @@ async function deleteTagsFromGithub(owner, repo, releases) {
   const octokit = github.getOctokit(Options.token);
   const promises = [];
   const tags = [];
-  let i = 1;
   for (const version in releases) {
-    if (i > 3) break;
-    const res = octokit.rest.repos.getReleaseByTag({
+    const res = octokit.rest.git.deleteRef({
       owner: owner,
       repo: repo,
-      tag: version,
+      ref: `tags/${version}`,
     });
     promises.push(res);
     tags.push(version);
-    i++;
   }
   await Promise.allSettled(promises).then((results) =>
     results.forEach((result, idx) => {
