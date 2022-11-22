@@ -32,6 +32,10 @@ inputs:
     description: 'Also remove the tags associated with the removed releases.'
     required: false
     default: false
+  dry-run:
+    description: "Doesn't do anything. Only a test run."
+    required: false
+    default: false
 runs:
   using: 'node16'
   main: 'dist/index.js'

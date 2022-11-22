@@ -9,6 +9,7 @@ const Options = {
   keepOldBy: 2, // major: 1, minor: 2, patch: 3
   keepOldCount: 1,
   removeTags: false,
+  dryRun: false,
 };
 
 const SemverOption = {
@@ -265,11 +266,12 @@ async function run() {
   console.log("Done.");
 
   console.log("Deleting releases from Github.");
-  await deleteReleasesFromGithub(owner, repo, releases);
+  if (!Options.dryRun) await deleteReleasesFromGithub(owner, repo, releases);
   console.log("Done.");
+
   if (Options.removeTags) {
     console.log("Deleting tags from Github.");
-    await deleteTagsFromGithub(owner, repo, releases);
+    if (!Options.dryRun) await deleteTagsFromGithub(owner, repo, releases);
     console.log("Done.");
   }
 }
@@ -287,6 +289,7 @@ try {
       : 2;
   Options.keepOldCount = core.getInput("keep-old-minor-releases-count");
   Options.removeTags = core.getInput("remove-tags");
+  Options.dryRun = core.getInput("dry-run");
   SemverOption.loose = core.getInput("semver-loose");
   SemverOption.includePrerelease = core.getInput("include-prerelease");
 

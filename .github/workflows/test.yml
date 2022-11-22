@@ -24,3 +24,4 @@ jobs:
           include-prerelease: true
           semver-loose: true
           remove-tags: true
+          dry-run: true
