@@ -1,0 +1,33 @@
+name: Test
+
+on:
+  push:
+    branches: [master]
+  pull_request:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      
+      - name: install npm
+        run: npm install
+
+      - name: Run action
+        uses: ./ # Uses an action in the root directory
+        id: del_release
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          keep-count: 5
+          keep-old-minor-releases: true
+          keep-old-minor-releases-by: patch
+          include-prerelease: true
+          semver-loose: true
+          remove-tags: true
+
+      # Use the output from the `del_release` step
+      - name: Get the output result
+        run: echo "${{ steps.del_release.outputs.result }}"
