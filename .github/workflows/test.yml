@@ -13,6 +13,12 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
 
+      - name: Install node modules
+        run: npm install
+
+      - name: Build
+        run: npm run build
+
       - name: Run action
         uses: ./ # Uses an action in the root directory
         id: del_release
