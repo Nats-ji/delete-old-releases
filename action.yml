@@ -14,7 +14,6 @@ inputs:
   keep-old-minor-releases:
     description: 'Keep the latest release of each older minor versions.'
     required: true
-    default: true
   keep-old-minor-releases-by:
     description: 'Which semver level should we use to keep old release? Can be: major, minor, patch'
     required: false

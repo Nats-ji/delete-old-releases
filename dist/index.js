@@ -13105,20 +13105,24 @@ async function run() {
 
 try {
   // load options
-  Options.token = core.getInput("token");
-  Options.keepCount = core.getInput("keep-count");
-  Options.keepOld = core.getInput("keep-old-minor-releases");
+  Options.token = core.getInput("token", {required: true});
+  Options.keepCount = Number(core.getInput("keep-count"));
+  Options.keepOld = core.getBooleanInput("keep-old-minor-releases", {required: true});
   Options.keepOldBy =
     core.getInput("keep-old-minor-releases-by") === "major"
       ? 1
       : core.getInput("keep-old-minor-releases-by") === "patch"
       ? 3
       : 2;
-  Options.keepOldCount = core.getInput("keep-old-minor-releases-count");
-  Options.removeTags = core.getInput("remove-tags");
-  Options.dryRun = core.getInput("dry-run");
-  SemverOption.loose = core.getInput("semver-loose");
-  SemverOption.includePrerelease = core.getInput("include-prerelease");
+  Options.keepOldCount = Number(core.getInput("keep-old-minor-releases-count"));
+  Options.removeTags = core.getBooleanInput("remove-tags");
+  Options.dryRun = core.getBooleanInput("dry-run");
+  SemverOption.loose = core.getBooleanInput("semver-loose");
+  SemverOption.includePrerelease = core.getBooleanInput("include-prerelease");
+  if (isNaN(Options.keepCount))
+    throw new Error("Input is not a number: keep-count")
+  if (isNaN(Options.keepOldCount))
+    throw new Error("Input is not a number: keep-old-minor-releases-count")
 
   run();
 } catch (error) {
